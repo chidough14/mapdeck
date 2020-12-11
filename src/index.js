@@ -4,10 +4,13 @@ import './index.css';
 import App from './App'; //deckgl maps
 import * as serviceWorker from './serviceWorker';
 import Goog from './Goog';
+import Sample from './components/Sample';
+import 'antd/dist/antd.css';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    {/* <App /> */}
+    <Sample />
     {/* <Goog /> */}
   </React.StrictMode>,
   document.getElementById('root')

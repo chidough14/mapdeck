@@ -3,9 +3,9 @@ import {render} from 'react-dom';
 
 import {StaticMap} from 'react-map-gl';
 import DeckGL from '@deck.gl/react';
-import {LineLayer, ScatterplotLayer} from '@deck.gl/layers';
+import {LineLayer, ScatterplotLayer, GeoJsonLayer} from '@deck.gl/layers';
 import GL from '@luma.gl/constants';
-import paths from './RANDOM_LINES2.json'
+import paths from './heathrow-flights.json'
 
 // Set your mapbox token here
 const MAPBOX_TOKEN = 'pk.eyJ1IjoiY2hpZG96aWUiLCJhIjoiY2tnOWgzNm92MDE3MDJ3cGc1amN5Yjc1bSJ9._rcv6x9fY7c9_tUNGLOdxg'; // eslint-disable-line
@@ -60,7 +60,7 @@ export default function App({
   getWidth = 3,
   mapStyle = 'mapbox://styles/mapbox/dark-v9'
 }) {
-  const layers = [
+ /*  const layers = [
     new ScatterplotLayer({
       id: 'airports',
       data: airports,
@@ -80,11 +80,26 @@ export default function App({
       getWidth,
       pickable: true
     })
-  ];
+  ]; */
+
+  const layer = new GeoJsonLayer({
+    id: 'geojson-layer',
+    data: flightPaths,
+    pickable: true,
+    stroked: false,
+    filled: true,
+    extruded: true,
+    lineWidthScale: 20,
+    lineWidthMinPixels: 2,
+    getFillColor: [160, 160, 180, 200],
+    getRadius: 100,
+    getLineWidth: 1,
+    getElevation: 30
+  });
 
 
   return (
-    <DeckGL
+   /*  <DeckGL
       layers={layers}
       initialViewState={INITIAL_VIEW_STATE}
       controller={true}
@@ -101,7 +116,11 @@ export default function App({
         preventStyleDiffing={true}
         mapboxApiAccessToken={MAPBOX_TOKEN}
       />
-    </DeckGL>
+    </DeckGL> */
+
+    <DeckGL initialViewState={INITIAL_VIEW_STATE}
+    layers={[layer]}
+    getTooltip={getTooltip} />
   );
 }
 
